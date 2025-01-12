@@ -3,4 +3,4 @@ services:
     name: ecommerce
     runtime: python
     buildCommand: pip install -r requirement.txt && python manage.py collectstatic --no-input
-    startCommand: gunicorn ecommerce-project.wsgi:application
+    startCommand: gunicorn ecommerce.wsgi:application
