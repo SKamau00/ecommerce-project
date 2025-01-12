@@ -1,0 +1,115 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <style>
+    /* General styles */
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+
+    /* Table styles */
+    #dev-table {
+      width: 100%;
+      border-collapse: collapse; /* Remove gaps between table borders */
+      background-color: goldenrod; /* Table background color */
+      border: 2px solid goldenrod; /* Border color */
+    }
+
+    /* Header row styles */
+    #dev-table th {
+      background-color: darkgoldenrod; /* Darker header background */
+      color: white; /* White text for contrast */
+      padding: 10px;
+      border: 1px solid goldenrod; /* Consistent border */
+    }
+
+    /* Table cell styles */
+    #dev-table td {
+      background-color: white; /* Cell background */
+      padding: 10px;
+      border: 1px solid goldenrod; /* Consistent border */
+      text-align: left; /* Left-align cell text */
+    }
+
+    /* Button styles for optional enhancement */
+    .btn-primary {
+      background-color: blue;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .btn-danger {
+      background-color: red;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+  <div class="panel">
+    <div class="panel-heading">
+      <h6 class="panel-title">Total Orders</h6>
+    </div>
+    <table id="dev-table">
+      <thead>
+        <tr>
+          <th>Customer Name</th>
+          <th>Customer Mobile</th>
+          <th>Shipment Address</th>
+          <th>Product Name</th>
+          <th>Product Picture</th>
+          <th>Status</th>
+          <th>Update Status</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <!-- p for product, c for customer-->
+      {% for product, customer, order in data %}
+      <tr>
+        {% for c in customer %}
+        <td>{{ c.get_name }}</td>
+        <td>{{ c.mobile }}</td>
+        <td>{{ order.address }}</td>
+        {% endfor %}
+        {% for p in product %}
+        <td>{{ p.name }}</td>
+        <td>
+          <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" />
+        </td>
+        <td>{{ order.status }}</td>
+        <td><a class="btn-primary" href="{% url 'update-order' order.id %}">Update</a></td>
+        <td><a class="btn-danger" href="{% url 'delete-order' order.id %}">Delete</a></td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock content %}

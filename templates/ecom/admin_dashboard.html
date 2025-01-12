@@ -1,0 +1,88 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+<br>
+{% include 'ecom/admin_dashboard_cards.html' %}
+<br><br><br><br><br>
+
+<hr><hr>
+<div class="container">
+
+  <div class="panel">
+    <div class="panel-heading" style="text-align:center;">
+      <h6 class="panel-title">Recent Booking</h6>
+    </div>
+    <table id="dev-table">
+      <thead>
+        <tr>
+          <th>Customer Name</th>
+          <th>Customer Mobile</th>
+          <th>Shipment Address</th>
+          <th>Product Name</th>
+          <th>Product Picture</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      {% for product, customer, order in data %}
+      <tr>
+        {% for c in customer %}
+        <td>{{ c.get_name }}</td>
+        <td>{{ c.mobile }}</td>
+        <td>{{ order.address }}</td>
+        {% endfor %}
+        {% for p in product %}
+        <td>{{ p.name }}</td>
+        <td>
+          <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" />
+        </td>
+
+        {% if order.status == 'Pending' %}
+        <td><span>{{ order.status }}</span></td>
+        {% elif order.status == 'Delivered' %}
+        <td><span>{{ order.status }}</span></td>
+        {% elif order.status == 'Out for Delivery' %}
+        <td><span>{{ order.status }}</span></td>
+        {% else %}
+        <td><span>{{ order.status }}</span></td>
+        {% endif %}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<style>
+  /* Table styles */
+  #dev-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove gaps between borders */
+    background-color: goldenrod; /* Table background color */
+    border: 2px solid goldenrod; /* Border color */
+  }
+
+  /* Header styles */
+  #dev-table th {
+    background-color: darkgoldenrod; /* Slightly darker header background */
+    color: white; /* White text for headers */
+    padding: 10px;
+    border: 1px solid goldenrod; /* Consistent border */
+    text-align: center;
+  }
+
+  /* Row styles */
+  #dev-table td {
+    background-color: white; /* Cell background */
+    padding: 10px;
+    border: 1px solid goldenrod; /* Consistent border */
+    text-align: left; /* Align content to the left */
+  }
+
+  /* Status labels for better distinction */
+  #dev-table td span {
+    font-weight: bold;
+    color: black;
+  }
+</style>
+
+{% endblock content %}

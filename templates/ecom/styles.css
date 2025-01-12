@@ -1,0 +1,9 @@
+#dev-table {
+    background-color: goldenrod !important; /* Change table background color */
+    border: 2px goldenrod !important;     /* Change table border color */
+}
+
+#dev-table th, #dev-table td {
+    border: 1px solid black !important;     /* Add borders to table cells */
+    color: black !important;                /* Optional: Ensure text is readable */
+}

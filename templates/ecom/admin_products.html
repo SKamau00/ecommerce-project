@@ -1,0 +1,106 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <style>
+    /* Table styles */
+    #dev-table {
+      background-color: goldenrod; /* Background color for the table */
+      border: 2px solid goldenrod; /* Border color */
+      width: 100%; /* Optional: make it full-width */
+      border-collapse: collapse; /* Ensure clean borders */
+    }
+
+    /* Header row styling */
+    #dev-table th {
+      background-color: darkgoldenrod; /* Slightly darker header background */
+      color: white; /* Text color for headers */
+      padding: 10px; /* Padding for readability */
+      border: 1px solid goldenrod; /* Match table border */
+    }
+
+    /* Table cell styling */
+    #dev-table td {
+      background-color: white; /* Cell background color */
+      padding: 10px; /* Padding for readability */
+      border: 1px solid goldenrod; /* Match table border */
+      text-align: left; /* Align text to the left */
+    }
+
+    /* Optional: Float button styling */
+    .float {
+      position: fixed;
+      width: 70px;
+      height: 70px;
+      bottom: 60px;
+      right: 60px;
+      background-color: red;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      box-shadow: 3px 3px 3px #999;
+    }
+
+    .my-float {
+      margin-top: 22px;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    a:link {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+
+
+<br>
+<br>
+
+<br>
+<br>
+
+<div class="container">
+  <div class="panel">
+    <div class="panel-heading">
+      <h6 class="panel-title">Total Product List</h6>
+    </div>
+    <table id="dev-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      {% for p in products %}
+      {% if p %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>
+          <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" />
+        </td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.description }}</td>
+        <td><a href="{% url 'update-product' p.id %}">Update</a></td>
+        <td><a href="{% url 'delete-product' p.id %}">Delete</a></td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6">No products found</td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<a href="/admin-add-product" class="float">
+  <i class="fa fa-plus my-float"></i>
+</a>
+{% endblock content %}
